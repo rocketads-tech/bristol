@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 //* ========  check webp end ===========
-const body = document.querySelector('body')
+const body = document.querySelector("body");
 
 // * ======= sticky header start ===========
 document.addEventListener("DOMContentLoaded", function () {
@@ -82,23 +82,31 @@ closeMobMenu.addEventListener("click", function () {
 navListLi.forEach((li) => {
   const link = li.querySelector("a[href^='#']");
   if (link) {
-    link.addEventListener("click", () => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault(); // Отменяем стандартный переход
+
+      const targetId = link.getAttribute("href").substring(1); // получаем id без #
+      const targetElement = document.getElementById(targetId);
+
       if (nav.classList.contains("active")) {
         nav.classList.remove("active");
         header.classList.remove("active");
         body.classList.remove("lock");
       }
+
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: "smooth" });
+      }
     });
   }
 });
-
 
 nav.addEventListener("click", function (e) {
   if (e.target === nav) {
     nav.classList.remove("active");
     header.classList.remove("active");
     body.classList.remove("lock");
-  } else false
+  } else false;
 });
 
 function toggleLinkHoverClass() {
@@ -111,23 +119,22 @@ function toggleLinkHoverClass() {
   });
 }
 
-  // Запуск при загрузке
-  toggleLinkHoverClass();
+// Запуск при загрузке
+toggleLinkHoverClass();
 
-  // Обновление при изменении размера окна
-  window.addEventListener("resize", toggleLinkHoverClass);
+// Обновление при изменении размера окна
+window.addEventListener("resize", toggleLinkHoverClass);
 // * ======== mobile menu end ===========
 
 // * ======== animated start ===========
 
-import './modules/animate.js';
+import "./modules/animate.js";
 
 import { gsap } from "gsap";
 
 import { ScrollTrigger } from "gsap/ScrollTrigger.js";
 
 window.addEventListener("load", () => {
-
   gsap.registerPlugin(ScrollTrigger);
 
   const races = document.querySelector(".races");
@@ -216,7 +223,6 @@ document.querySelectorAll(".popup-img__btn").forEach((btn) => {
 
     // Показываем попап
     popup.style.display = "flex";
-
   });
 });
 
@@ -236,7 +242,13 @@ document
 // *============ gallerySwiper start ===========
 
 import Swiper from "swiper";
-import { EffectCoverflow, FreeMode, Navigation, Pagination, Thumbs } from "swiper/modules";
+import {
+  EffectCoverflow,
+  FreeMode,
+  Navigation,
+  Pagination,
+  Thumbs,
+} from "swiper/modules";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -344,7 +356,7 @@ swiper.on("slideChange", () => {
 
   // сохраняем текущий угол и прибавляем к нему
   let currentAngle = parseFloat(spinner.dataset.angle || "0");
-  currentAngle += 90 * direction / 3;
+  currentAngle += (90 * direction) / 3;
   spinner.dataset.angle = currentAngle;
 
   spinner.style.transform = `translate(-50%, -50%) rotate(${currentAngle}deg)`;
@@ -470,5 +482,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // *============ air-datepicker end ===========
 
-import './modules/form.js';
-
+import "./modules/form.js";
